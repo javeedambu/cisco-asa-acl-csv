@@ -1,0 +1,116 @@
+hostname FW1
+object network 1-NetworkObject
+ description This is a single host object IP without mask
+ host 10.0.0.1
+object network 2-NetworkSubnet
+ description This is a single subnet with mask
+ subnet 10.0.0.0 255.255.255.0
+object network 3-NetowrkRange
+ description This is an IP range
+ range 10.0.0.10 10.0.0.11
+object-group network 4-NetworkObjectGroup
+ description This a group of multiple IPs
+ network-object 10.0.0.10 255.255.255.255
+ network-object 20.0.0.20 255.255.255.255
+object-group network 5-NetworkSubnetGroup
+ description This is a group of multiple subnets
+ network-object 10.0.0.0 255.255.255.0
+ network-object 20.0.0.0 255.255.255.0
+object-group network 6-NetworkGroupAll
+ description This is a group of IP other Netowrk Groups
+ network-object 10.0.0.10 255.255.255.255
+ network-object 20.0.0.0 255.255.255.0
+ group-object 4-NetworkObjectGroup
+ group-object 5-NetworkSubnetGroup
+object service 7-ServiceObjectTcp
+ description This a single tcp service for destination
+ service tcp destination eq 445
+object service 8-ServiceObjectUdp
+ description This a single udp service for destination
+ service udp destination eq 21
+object service 9-ServiceRange
+ description This is a range of tcp ports
+ service tcp destination range 49152 65535
+object-group service 10-ServiceGroup
+ description This is a group with one or more destination port
+ service-object tcp-udp destination eq 123
+object-group service 11-ServiceGroup
+ description This is a group with multiple protocols without ports
+ service-object udp
+ service-object tcp
+object-group service 12-ServiceGroup
+ description This is a group with ServiceObject and ServiceObjectGroup
+ service-object tcp destination eq 1000
+ service-object udp destination eq 2000
+ service-object object 7-ServiceObjectTcp
+ service-object object 8-ServiceObjectUdp
+ service-object object 9-ServiceRange
+ group-object 10-ServiceGroup
+ group-object 11-ServiceGroup
+object-group service 13-ServiceGroupTCP tcp-udp
+ description This is a group with ServiceObject and ServiceObjectGroup
+ port-object eq 450
+ port-object eq www
+object-group service 14-ServiceGroupUDP udp
+ description This is a group with ServiceObject and ServiceObjectGroup
+ port-object range 20 21
+object-group service 15-ServiceGroupUDPGroup udp
+ description This is a group with ServiceObject and ServiceObjectGroup
+ port-object eq 3000
+ group-object 14-ServiceGroupUDP
+hostname FW2
+object network O_1
+ description This is a single host object O_1
+ host 50.0.0.1
+object network O_2
+ description This is a single host object IP O_2
+subnet 50.0.0.0 255.255.255.0
+object network O_3
+ description This is a single host object IP O_3
+ host 50.0.0.3
+object network O_4
+ description This is a single host object IP O_4
+ host 50.0.0.4
+object network O_X
+ description This is a single host object IP O_X
+ host 50.0.0.5
+object-group network HG_1
+ description This is a HostGroup
+ network-object 55.0.0.10 255.255.255.255
+ network-object 85.0.0.10 255.255.255.255
+object-group network HG_2
+ description This is a HostGroup
+ network-object 75.0.0.10 255.255.255.255
+ network-object 75.0.0.0 255.255.255.0
+object-group network HG_3
+ description This is a HostGroup
+ network-object 95.0.0.10 255.255.255.255
+ network-object 65.0.0.0 255.255.255.0
+object-group network HG_4
+ description This is a HostGroup
+ network-object 105.0.0.10 255.255.255.255
+ network-object 165.0.0.0 255.255.255.0
+object-group network HG_X
+ description This is a HostGroup
+ network-object 55.0.0.10 255.255.255.255
+ network-object 65.0.0.0 255.255.255.0
+ group-object HG_4
+
+object service SVC
+ description This a tcp service object SVC
+ service tcp destination eq 445
+object-group SV1_GROUP
+ description This a tcp Object Group SVC_GROUP
+ service-object tcp destination eq 1000
+ group-object 10-ServiceGroup
+object-group SV2_GROUP
+ description This a tcp Object Group SVC_GROUP
+ service-object tcp destination eq www
+ group-object SVC
+ group-object SV1_GROUP
+
+object-group SVC_GROUP
+ description This a tcp Object Group SVC3_GROUP
+ service-object tcp destination eq www
+ group-object SV2_GROUP
+

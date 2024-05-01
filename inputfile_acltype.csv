@@ -1,0 +1,33 @@
+matchClass,className
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object-group \b[\w.-]+\b Object-group \b[\w.-]+\b.*,ObjectGroup-ObjectGroup-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object-group \b[\w.-]+\b Object \b[\w.-]+\b.*,ObjectGroup-ObjectGroup-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object-group \b[\w.-]+\b Host \b[\w.-]+\b.*,ObjectGroup-ObjectGroup-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object-group \b[\w.-]+\b any(?:4)?.*,ObjectGroup-ObjectGroup-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object \b[\w.-]+\b Object-group \b[\w.-]+\b.*,ObjectGroup-Object-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object \b[\w.-]+\b Object \b[\w.-]+\b.*,ObjectGroup-Object-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object \b[\w.-]+\b Host \b[\w.-]+\b.*,ObjectGroup-Object-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object \b[\w.-]+\b any(?:4)?.*,ObjectGroup-Object-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Host \b[\w.-]+\b Object-group \b[\w.-]+\b.*,ObjectGroup-Host-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Host \b[\w.-]+\b Object \b[\w.-]+\b.*,ObjectGroup-Host-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Host \b[\w.-]+\b Host \b[\w.-]+\b.*,ObjectGroup-Host-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Host \b[\w.-]+\b any(?:4)?.*,ObjectGroup-Host-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b any(?:4)? Object-group \b[\w.-]+\b.*,ObjectGroup-Any-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b any(?:4)? Object \b[\w.-]+\b.*,ObjectGroup-Any-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b any(?:4)? Host \b[\w.-]+\b.*,ObjectGroup-Any-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b any(?:4)? any(?:4)?.*,ObjectGroup-Any-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object-group \b[\w.-]+\b Object-group \b[\w.-]+\b.*,TcpUdp-ObjectGroup-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object-group \b[\w.-]+\b Object \b[\w.-]+\b.*,TcpUdp-ObjectGroup-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object-group \b[\w.-]+\b Host \b[\w.-]+\b.*,TcpUdp-ObjectGroup-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object-group \b[\w.-]+\b any(?:4)?.*,TcpUdp-ObjectGroup-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object \b[\w.-]+\b Object-group \b[\w.-]+\b.*,TcpUdp-Object-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object \b[\w.-]+\b Object \b[\w.-]+\b.*,TcpUdp-Object-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object \b[\w.-]+\b Host \b[\w.-]+\b.*,TcpUdp-Object-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object \b[\w.-]+\b any(?:4)?.*,TcpUdp-Object-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b host \b[\w.-]+\b Object-group \b[\w.-]+\b.*,TcpUdp-Host-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b host \b[\w.-]+\b Object \b[\w.-]+\b.*,TcpUdp-Host-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b host \b[\w.-]+\b Host \b[\w.-]+\b.*,TcpUdp-Host-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b host \b[\w.-]+\b any(?:4)?.*,TcpUdp-Host-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b any(?:4)? Object-group \b[\w.-]+\b.*,TcpUdp-Any-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b any(?:4)? Object \b[\w.-]+\b.*,TcpUdp-Any-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b any(?:4)? Host \b[\w.-]+\b.*,TcpUdp-Any-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b any(?:4)? any(?:4)?.*,TcpUdp-Any-Any

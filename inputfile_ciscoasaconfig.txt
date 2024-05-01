@@ -1,0 +1,60 @@
+hostname FW1
+access-list 1-OBJECTGROUP_OBJECTGROUP_OBJECTGROUP remark REMARK1
+access-list 1-OBJECTGROUP_OBJECTGROUP_OBJECTGROUP extended permit object-group SVC_GROUP object-group HG_1 object-group HG_X 
+access-list 2-OBJECTGROUP_OBJECTGROUP_OBJECT extended permit object-group SVC_GROUP object-group HG_2 object O_X 
+access-list 3-OBJECTGROUP_OBJECTGROUP_HOST extended permit object-group SVC_GROUP object-group HG_3 host 10.0.0.10 
+access-list 4-OBJECTGROUP_OBJECTGROUP_ANY extended permit object-group SVC_GROUP object-group HG_4 any4 
+access-list 5-OBJECTGROUP_OBJECT_OBJECTGROUP extended permit object-group SVC_GROUP object O_1 object-group HG_X 
+access-list 6-OBJECTGROUP_OBJECT_OBJECT extended permit object-group SVC_GROUP object O_2 object O_X 
+access-list 7-OBJECTGROUP_OBJECT_HOST extended permit object-group SVC_GROUP object O_3 host 10.0.0.11 
+access-list 8-OBJECTGROUP_OBJECT_ANY extended permit object-group SVC_GROUP object O_4 any 
+access-list 9-OBJECTGROUP_HOST_OBJECTGROUP extended permit object-group SVC_GROUP host 10.0.0.1 object-group HG_X 
+access-list 10-OBJECTGROUP_HOST_OBJECT extended permit object-group SVC_GROUP host 10.0.0.2 object O_X 
+access-list 11-OBJECTGROUP_HOST_HOST extended permit object-group SVC_GROUP host 10.0.0.3 host 10.0.0.12 
+access-list 12-OBJECTGROUP_HOST_ANY extended permit object-group SVC_GROUP host 10.0.0.4 any 
+access-list 13-OBJECTGROUP_ANY_OBJECTGROUP extended permit object-group SVC_GROUP any object-group HG_X 
+access-list 14-OBJECTGROUP_ANY_OBJECT extended permit object-group SVC_GROUP any object O_X 
+access-list 15-OBJECTGROUP_ANY_HOST extended permit object-group SVC_GROUP any host 10.0.0.13 
+access-list 16-OBJECTGROUP_ANY_ANY remark REMARK2
+access-list 16-OBJECTGROUP_ANY_ANY extended permit object-group SVC_GROUP any4 any
+hostname FW2
+access-list 17-TCP_OBJECTGROUP_OBJECTGROUP extended permit tcp object-group OG_1 object-group HG_X 
+access-list 18-TCP_OBJECTGROUP_OBJECT remark REMARK3
+access-list 18-TCP_OBJECTGROUP_OBJECT extended permit tcp object-group OG_2 object O_X 
+access-list 19-TCP_OBJECTGROUP_HOST extended permit tcp object-group OG_3 host 10.0.0.14 
+access-list 20-TCP_OBJECTGROUP_ANY extended permit tcp object-group OG_4 any 
+access-list 21-TCP_OBJECT_OBJECTGROUP extended permit tcp object O_1 object-group HG_X 
+access-list 22-TCP_OBJECT_OBJECT extended permit tcp object O_2 object O_X 
+access-list 23-TCP_OBJECT_HOST extended permit tcp object O_3 host 10.0.0.15 
+access-list 24-TCP_OBJECT_ANY extended permit tcp object O_4 any 
+access-list 25-TCP_HOST_OBJECTGROUP extended permit tcp host 10.0.1.1 object-group HG_X 
+access-list 26-TCP_HOST_OBJECT extended permit tcp host 10.0.1.2 object O_X 
+access-list 27-TCP_HOST_HOST extended permit tcp host 10.0.1.3 host 10.0.0.16 
+access-list 28-TCP_HOST_ANY extended permit tcp host 10.0.1.4 any 
+access-list 29-TCP_ANY_OBJECTGROUP extended permit tcp any object-group HG_X 
+access-list 30-TCP_ANY_OBJECT extended permit tcp any object O_X 
+access-list 31-TCP_ANY_HOST extended permit tcp any host 10.0.0.17 
+access-list 32-TCP_ANY_ANY extended permit tcp any any 
+hostname FW3
+access-list 33-ICMP_ANY_ANY extended permit icmp any any log default
+access-list 34-TCP_ANY_ANY extended permit tcp any any range 2000 3000 log default
+access-list 35-UDP_ANY_ANY extended permit udp any any eq 21
+access-list 36-TCP_HOST_HOST extended permit tcp host 20.0.0.1 host 20.0.0.2 object-group SRVTYPE001
+hostname FW4
+access-list 37-OBJECT_OBJECTGROUP_OBJECTGROUP remark REMARK4
+access-list 37-OBJECT_OBJECTGROUP_OBJECTGROUP extended permit object SVC object-group HG_1 object-group HG_X 
+access-list 38-OBJECT_OBJECTGROUP_OBJECT extended permit object SVC object-group HG_2 object O_X 
+access-list 39-OBJECT_OBJECTGROUP_HOST extended permit object SVC object-group HG_3 host 10.0.0.10 
+access-list 40-OBJECT_OBJECTGROUP_ANY extended permit object SVC object-group HG_4 any 
+access-list 41-OBJECT_OBJECT_OBJECTGROUP extended permit object SVC object O_1 object-group HG_X 
+access-list 42-OBJECT_OBJECT_OBJECT extended permit object SVC object O_2 object O_X 
+access-list 43-OBJECT_OBJECT_HOST extended permit object SVC object O_3 host 10.0.0.11 
+access-list 44-OBJECT_OBJECT_ANY extended permit object SVC object O_4 any 
+access-list 45-OBJECT_HOST_OBJECTGROUP extended permit object SVC host 10.0.0.1 object-group HG_X 
+access-list 46-OBJECT_HOST_OBJECT extended permit object SVC host 10.0.0.2 object O_X 
+access-list 47-OBJECT_HOST_HOST extended permit object SVC host 10.0.0.3 host 10.0.0.12 
+access-list 48-OBJECT_HOST_ANY extended permit object SVC host 10.0.0.4 any 
+access-list 49-OBJECT_ANY_OBJECTGROUP extended permit object SVC any object-group HG_X 
+access-list 50-OBJECT_ANY_OBJECT extended permit object SVC any object O_X 
+access-list 51-OBJECT_ANY_HOST extended permit object SVC any host 10.0.0.13 
+access-list 52-OBJECT_ANY_ANY extended permit object SVC any any 
