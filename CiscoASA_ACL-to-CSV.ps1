@@ -18,18 +18,54 @@
 
 
 # Source the functions from the external file
-. ".\CiscoASA_ACL-to-CSV_FUNCTIONS.ps1"
-
-# Import a list of patters to match and differrent classes of ACL
-$classList = Import-Csv .\inputfile_acltype.csv
+. ".\Modules\CiscoASA_ACL-to-CSV_FUNCTIONS.ps1"
 
 # Read the input text from a TXT file
-$inputText = Get-Content -Path ".\inputfile_ciscoasaconfig.txt"
+$inputText = Get-Content -Path ".\Input\inputfile_ciscoasaconfig.txt"
+
+# Import a list of patters to match and differrent fortmats of access lists
+#$classList = Import-Csv .\Input\inputfile_acltype.csv
+
+$aclPatterns = @"
+matchPattern,matchName
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object-group \b[\w.-]+\b Object-group \b[\w.-]+\b.*,ObjectGroup-ObjectGroup-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object-group \b[\w.-]+\b Object \b[\w.-]+\b.*,ObjectGroup-ObjectGroup-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object-group \b[\w.-]+\b Host \b[\w.-]+\b.*,ObjectGroup-ObjectGroup-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object-group \b[\w.-]+\b any(?:4)?.*,ObjectGroup-ObjectGroup-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object \b[\w.-]+\b Object-group \b[\w.-]+\b.*,ObjectGroup-Object-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object \b[\w.-]+\b Object \b[\w.-]+\b.*,ObjectGroup-Object-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object \b[\w.-]+\b Host \b[\w.-]+\b.*,ObjectGroup-Object-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Object \b[\w.-]+\b any(?:4)?.*,ObjectGroup-Object-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Host \b[\w.-]+\b Object-group \b[\w.-]+\b.*,ObjectGroup-Host-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Host \b[\w.-]+\b Object \b[\w.-]+\b.*,ObjectGroup-Host-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Host \b[\w.-]+\b Host \b[\w.-]+\b.*,ObjectGroup-Host-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b Host \b[\w.-]+\b any(?:4)?.*,ObjectGroup-Host-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b any(?:4)? Object-group \b[\w.-]+\b.*,ObjectGroup-Any-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b any(?:4)? Object \b[\w.-]+\b.*,ObjectGroup-Any-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b any(?:4)? Host \b[\w.-]+\b.*,ObjectGroup-Any-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b object(?:-group)? \b[\w.-]+\b any(?:4)? any(?:4)?.*,ObjectGroup-Any-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object-group \b[\w.-]+\b Object-group \b[\w.-]+\b.*,TcpUdp-ObjectGroup-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object-group \b[\w.-]+\b Object \b[\w.-]+\b.*,TcpUdp-ObjectGroup-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object-group \b[\w.-]+\b Host \b[\w.-]+\b.*,TcpUdp-ObjectGroup-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object-group \b[\w.-]+\b any(?:4)?.*,TcpUdp-ObjectGroup-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object \b[\w.-]+\b Object-group \b[\w.-]+\b.*,TcpUdp-Object-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object \b[\w.-]+\b Object \b[\w.-]+\b.*,TcpUdp-Object-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object \b[\w.-]+\b Host \b[\w.-]+\b.*,TcpUdp-Object-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b object \b[\w.-]+\b any(?:4)?.*,TcpUdp-Object-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b host \b[\w.-]+\b Object-group \b[\w.-]+\b.*,TcpUdp-Host-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b host \b[\w.-]+\b Object \b[\w.-]+\b.*,TcpUdp-Host-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b host \b[\w.-]+\b Host \b[\w.-]+\b.*,TcpUdp-Host-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b host \b[\w.-]+\b any(?:4)?.*,TcpUdp-Host-Any
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b any(?:4)? Object-group \b[\w.-]+\b.*,TcpUdp-Any-ObjectGroup
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b any(?:4)? Object \b[\w.-]+\b.*,TcpUdp-Any-Object
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b any(?:4)? Host \b[\w.-]+\b.*,TcpUdp-Any-Host
+^access-list \b[\w.-]+\b extended \b[\w.-]+\b \b[\w.-]+\b any(?:4)? any(?:4)?.*,TcpUdp-Any-Any
+"@ | ConvertFrom-Csv
 
 # Output file
-if (-not (Test-Path -Path ".\output\")) {New-Item -Path .\output -ItemType Directory -Force}
-$AclOutputFile = ".\output\ciscoasa_acl_outputfile_$(Get-Date -format yyyy-MM-dd-HHmmss).csv"
-$UnprocessedConfig = ".\output\ciscoasa_config_unporocessed_$(Get-Date -format yyyy-MM-dd-HHmmss).csv"
+if (-not (Test-Path -Path ".\Output\")) {New-Item -Path .\Output -ItemType Directory -Force}
+$AclOutputFile = ".\Output\ciscoasa_acl_outputfile_$(Get-Date -format yyyy-MM-dd-HHmmss).csv"
+$UnprocessedConfig = ".\Output\ciscoasa_config_unporocessed_$(Get-Date -format yyyy-MM-dd-HHmmss).txt"
 
 # Convert the input text into an array of lines
 $lines = $inputText -split "`n"
@@ -64,20 +100,22 @@ $currentFirewallName = ""
 #$currentDescription = ""
 
 
-
+# Iterate though each line in the ASA config file
 foreach ($line in $lines) {
 
+    # Remove leading and trailing whitespace
     $line = $line.Trim()
 
+    # Check if the line is an extended access list
     if ($line -match "^access-list \b[\w.-]+\b extended") {
 
         # Execute if its an extended access-list
-        foreach ($item in $classList){
+        foreach ($item in $aclPatterns){
 
-            if ($line -match $item.matchClass.Trim()) {
+            if ($line -match $item.matchPattern.Trim()) {
             
                 # Call associated function if the line matches the ACL syntax
-                $AclObjects += & $item.className -line $line -item $item -currentAclRemark $currentAclRemark -currentFirewallName $currentFirewallName
+                $AclObjects += & $item.matchName -line $line -item $item -currentAclRemark $currentAclRemark -currentFirewallName $currentFirewallName
             }
         }
 
@@ -85,7 +123,7 @@ foreach ($line in $lines) {
 
     } ElseIf ($line -match "^access-list \b[\w.-]+\b remark") {
         # If the the line is a Remark/Description then Add ACL Name and Descroption
-        $currentAclName = ($line -split " ")[1]
+        #currentAclName = ($line -split " ")[1]
         $currentAclRemark += ($line -replace "access-list.*?remark ","") -join "`n"
 
     } Elseif ($line.StartsWith("hostname")){
@@ -101,11 +139,12 @@ foreach ($line in $lines) {
 }
 
 
-# Export ACLs
-#$AclObjects | Out-GridView -PassThru
+# Export ACLs to CSV
+# $AclObjects | Out-GridView -PassThru
 $AclObjects | Export-Csv -Path $AclOutputfile -NoTypeInformation
 
-#Export unprocessed lines
-$unprocesedLines | Where-Object {$_ -ne ''} | Out-GridView -PassThru | Export-Csv -Path $UnprocessedConfig -NoTypeInformation
+#Export unprocessed lines to CSV
+#$unprocesedLines | Where-Object {$_ -ne ''} | Out-GridView -PassThru | Export-Csv -Path $UnprocessedConfig -NoTypeInformation
+$unprocesedLines | Where-Object {$_ -ne ''} | Out-File -FilePath $UnprocessedConfig
 
 return $AclObjects

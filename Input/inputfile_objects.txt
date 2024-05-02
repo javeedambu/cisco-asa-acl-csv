@@ -58,18 +58,19 @@ object-group service 15-ServiceGroupUDPGroup udp
  description This is a group with ServiceObject and ServiceObjectGroup
  port-object eq 3000
  group-object 14-ServiceGroupUDP
+
 hostname FW2
-object network O_1
- description This is a single host object O_1
+object network OG_1
+ description This is a single host object OG_1
  host 50.0.0.1
-object network O_2
- description This is a single host object IP O_2
+object network OG_2
+ description This is a single host object IP OG_2
 subnet 50.0.0.0 255.255.255.0
-object network O_3
- description This is a single host object IP O_3
+object network OG_3
+ description This is a single host object IP OG_3
  host 50.0.0.3
-object network O_4
- description This is a single host object IP O_4
+object network OG_4
+ description This is a single host object IP OG_4
  host 50.0.0.4
 object network O_X
  description This is a single host object IP O_X
@@ -99,18 +100,52 @@ object-group network HG_X
 object service SVC
  description This a tcp service object SVC
  service tcp destination eq 445
-object-group SV1_GROUP
- description This a tcp Object Group SVC_GROUP
+object-group service SV1-GROUP
+ description This a tcp Object Group PROTO1
  service-object tcp destination eq 1000
  group-object 10-ServiceGroup
-object-group SV2_GROUP
- description This a tcp Object Group SVC_GROUP
+object-group service SV2-GROUP
+ description This a tcp Object Group SVC-GROUP
  service-object tcp destination eq www
  group-object SVC
- group-object SV1_GROUP
+ group-object SV1-GROUP
 
-object-group SVC_GROUP
- description This a tcp Object Group SVC3_GROUP
+
+object-group service SV1-GROUP
+ description This a tcp Object Group PROTO1
+ service-object tcp destination eq 1000
+ group-object 10-ServiceGroup
+object-group service SV2-GROUP
+ description This a tcp Object Group SVC-GROUP
  service-object tcp destination eq www
- group-object SV2_GROUP
+ group-object SV1-GROUP
+object-group service SVC_GROUP
+ description This a tcp Object Group SVC3-GROUP
+ service-object tcp destination eq www
+ service-object object SV1-GROUP
+ group-object SV1-GROUP
+
+object-group network OG_1
+ description This is a HostGroup
+ network-object 55.0.0.10 255.255.255.255
+ network-object 85.0.0.10 255.255.255.255
+object-group network OG_2
+ description This is a HostGroup
+ network-object object 75.0.0.10 255.255.255.255
+ network-group OG1
+object-group network OG_3
+ description This is a HostGroup
+ network-object object 95.0.0.10 255.255.255.255
+ network-group OG1
+ network-group OG2
+object-group network OG_4
+ description This is a HostGroup
+ network-object object 95.0.0.10 255.255.255.255
+ network-group OG1
+ network-group OG3
+object-group network OG_4
+ description This is a HostGroup
+ network-object object 95.0.0.10 255.255.255.255
+ network-group OG1
+ network-group HG_1
 

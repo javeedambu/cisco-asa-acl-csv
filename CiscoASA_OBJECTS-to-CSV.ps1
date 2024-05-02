@@ -22,11 +22,11 @@ function ExpandObjValue{
 }
 
 # Read the input text from a TXT file
-$inputText = Get-Content -Path .\inputfile_objects.txt
+$inputText = Get-Content -Path .\Input\inputfile_ciscoasaconfig_showtech.txt
 
 # Output file
-if (-not (Test-Path -Path ".\output\")) {New-Item -Path .\output -ItemType Directory -Force}
-$ObjectsOutputFile = ".\output\ciscoasa_objects_outputfile_$(Get-Date -format yyyy-MM-dd-HHmmss).csv"
+if (-not (Test-Path -Path ".\output\")) {New-Item -Path .\Output -ItemType Directory -Force}
+$ObjectsOutputFile = ".\Output\ciscoasa_objects_outputfile_$(Get-Date -format yyyy-MM-dd-HHmmss).csv"
 #$UnprocessedConfig = ".\output\ciscoasa_config_unporocessed_$(Get-Date -format yyyy-MM-dd-HHmmss).csv"
 
 # Convert the input text into an array of lines
