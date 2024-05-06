@@ -32,12 +32,15 @@ if (-not (Test-Path -Path ".\Output\")) {New-Item -Path .\Output -ItemType Direc
 $AclOutputFile = ".\Output\ciscoasa_MAIN_outputfile_$(Get-Date -format yyyy-MM-dd-HHmmss).csv"
 
 # Execute the ACL extraction script
+Write-Host "..... Converting AccessLists to CSV ....."
 $AclObjects = & .\CiscoASA_ACL-to-CSV.ps1
 
 # Execute the OBJECT extraction script
+Write-Host "..... Converting Objects to CSV ....."
 $csvData = & .\CiscoASA_OBJECTS-to-CSV.ps1
 
 # Expand the Services, Sources and Destinations within each ACLs by referring to the Object list.
+Write-Host "..... Expanding Objects in the AccessLists ....."
 
 # Iterate though each ACLs
 foreach ($acl in $AclObjects) {
@@ -67,10 +70,12 @@ foreach ($acl in $AclObjects) {
 }
 
 # Export FINAL list of ACLs
+Write-Host "..... Exporting final output to CSV ....."
 $AclObjects | Export-Csv -Path $AclOutputfile -NoTypeInformation
 
 # Open the output folder
 Invoke-Item ((Get-item $AclOutputFile).Directory)
 
 # Open the output file
+Write-Host "..... Opening the exported CSV ....."
 Invoke-Item (Resolve-Path $AclOutputFile)
