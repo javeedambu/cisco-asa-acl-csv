@@ -1,5 +1,7 @@
 # cisco-asa-acl-csv
-Script to convert a Cisco ASA ACL to CSV
+Script to convert a Cisco ASA ACL/OBJECTS to CSV
+###################################################
+
 
 CiscoASA_MAIN_JOIN-ACL-OBJECT.ps1
 - This is the MAIN script that will provide the final CSV of all ACLs with all properties expanded from the objects

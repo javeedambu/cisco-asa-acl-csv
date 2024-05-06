@@ -16,12 +16,14 @@
 #
 ########################################################################
 
+# Change the execution path to the script location 
+Set-Location -Path (Split-Path -Path $MyInvocation.MyCommand.Path -Parent)
 
 # Source the functions from the external file
 . ".\Modules\CiscoASA_ACL-to-CSV_FUNCTIONS.ps1"
 
 # Read the input text from a TXT file
-$inputText = Get-Content -Path ".\Input\inputfile_ciscoasaconfig.txt"
+$inputText = Get-Content -Path ".\Input\inputfile_ciscoasaconfig_showtech.txt"
 
 # Import a list of patters to match and differrent fortmats of access lists
 #$classList = Import-Csv .\Input\inputfile_acltype.csv

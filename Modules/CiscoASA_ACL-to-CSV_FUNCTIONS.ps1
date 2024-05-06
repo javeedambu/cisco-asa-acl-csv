@@ -153,7 +153,7 @@ Function ObjectGroup-ObjectGroup-Any {
     $currentSrcHGMemebers = ""
     $currentSrcIP = ""
     
-    $currentDestType = "Host"
+    $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
     $currentDestIP = "0.0.0.0 0.0.0.0"
