@@ -111,6 +111,9 @@ foreach ($line in $lines) {
     # Check if the line is an extended access list
     if ($line -match "^access-list \b[\w.-]+\b extended") {
 
+        # Remove logging information from the end of the line
+        if ($line -match ' log(?:\s+\w+)?\s*$') {$line = $line -replace $Matches[0]; $Matches=""}
+        
         # Execute if its an extended access-list
         foreach ($item in $aclPatterns){
 

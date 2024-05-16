@@ -1961,7 +1961,7 @@ access-list 18-TCP_OBJECTGROUP_OBJECT remark REMARK3
 access-list 18-TCP_OBJECTGROUP_OBJECT remark REMARK3
 access-list 18-TCP_OBJECTGROUP_OBJECT remark REMARK3
 access-list 18-TCP_OBJECTGROUP_OBJECT remark REMARK3
-access-list 18-TCP_OBJECTGROUP_OBJECT extended permit tcp object-group OG_2 object O_X 
+access-list 18-TCP_OBJECTGROUP_OBJECT extended permit tcp object-group OG_2 object O_X log default
 access-list 2-OBJECTGROUP_OBJECTGROUP_OBJECT extended permit object-group SVC_GROUP object-group HG_2 object O_X 
 access-list 3-OBJECTGROUP_OBJECTGROUP_HOST extended permit object-group SVC_GROUP object-group HG_3 host 10.0.0.10 
 access-list 4-OBJECTGROUP_OBJECTGROUP_ANY extended permit object-group SVC_GROUP object-group HG_4 any4 
@@ -1978,7 +1978,7 @@ access-list 11-OBJECTGROUP_HOST_HOST extended permit object-group SVC_GROUP host
 access-list 12-OBJECTGROUP_HOST_ANY extended permit object-group SVC_GROUP host 10.0.0.4 any 
 access-list 13-OBJECTGROUP_ANY_OBJECTGROUP extended permit object-group SVC_GROUP any object-group HG_X 
 access-list 14-OBJECTGROUP_ANY_OBJECT extended permit object-group SVC_GROUP any object O_X 
-access-list 15-OBJECTGROUP_ANY_HOST extended permit object-group SVC_GROUP any host 10.0.0.13 
+access-list 15-OBJECTGROUP_ANY_HOST extended permit object-group SVC_GROUP any host 10.0.0.13 log ABCD
 access-list 21-TCP_OBJECT_OBJECTGROUP extended permit tcp object O_1 object-group HG_X 
 access-list 22-TCP_OBJECT_OBJECT extended permit tcp object O_2 object O_X 
 access-list 23-TCP_OBJECT_HOST extended permit tcp object O_3 host 10.0.0.15 
