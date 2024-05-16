@@ -7,10 +7,13 @@ CiscoASA_MAIN_JOIN-ACL-OBJECT.ps1
 - This is the MAIN script that will provide the final CSV of all ACLs with all properties expanded from the objects
 
 CiscoASA_OBJECTS-to-CSV.ps1
-- Script to convert Objects from config to CSV
+- Script to convert Objects from running-config to CSV
 
 CiscoASA_ACL-to-CSV.ps1 
-- Script to extract all ACLs from the running config
+- Script to convert ACLs from running-config to CSV
+
+CiscoASA_FirewallRules_perIP.ps1
+- Script to filter the MAIN output per IP and export to CSV
 
 CiscoASA_Extract_RunningConfig.ps1
 - Script to extract all Running-Config

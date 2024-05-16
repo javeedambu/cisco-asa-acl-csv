@@ -1,0 +1,24 @@
+hostname FW2
+object network 1-NetworkObject
+ description This is a single host object IP without mask
+ host 10.0.0.1
+object network 2-NetworkSubnet
+ description This is a single subnet with mask
+ subnet 10.0.0.0 255.255.255.0
+object-group network 4-NetworkObjectGroup
+ description This a group of multiple IPs
+ network-object 10.0.0.10 255.255.255.255
+ network-object 20.0.0.20 255.255.255.255
+object-group network 5-NetworkSubnetGroup
+ description This is a group of multiple subnets
+ network-object 10.0.0.0 255.255.255.0
+ network-object 20.0.0.0 255.255.255.0
+object-group network 6-NetworkGroupAll
+ description This is a group of IP other Netowrk Groups
+ network-object 10.0.0.10 255.255.255.255
+ network-object 20.0.0.0 255.255.255.0
+ network-object object 1-NetworkObject
+ network-object object 2-NetworkSubnet
+ group-object 4-NetworkObjectGroup
+ group-object 5-NetworkSubnetGroup
+access-list 17-TCP_OBJECTGROUP_OBJECTGROUP extended permit tcp object-group 5-NetworkSubnetGroup object-group 6-NetworkGroupAll

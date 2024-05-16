@@ -20,6 +20,7 @@ object-group network 6-NetworkGroupAll
  description This is a group of IP other Netowrk Groups
  network-object 10.0.0.10 255.255.255.255
  network-object 20.0.0.0 255.255.255.0
+ network-object object 1-NetworkObject
  group-object 4-NetworkObjectGroup
  group-object 5-NetworkSubnetGroup
 object service 7-ServiceObjectTcp

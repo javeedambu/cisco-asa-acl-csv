@@ -50,15 +50,16 @@ foreach ($line in $lines) {
     $line = $line.Trim()
 
     # Capture the hostname of the firewall being extracted
-    if ($line -match "hostname (\b[\w.-]+\b)") {$objectFWHostname = $matches[1]; $matches = ""}
+    if ($line -match "^hostname (\b[\w.-]+\b)") {$objectFWHostname = $matches[1]; $matches = ""}
 
     
-    # Check if the current line matches the start marker
+    # Check if the current line matches the Start marker
     if ($line.StartsWith($startMarker)) { 
         # Set the flag to start extracting lines
         $extract = $true
     }
 
+    # Check if the current line matches the End marker
     if ($line.StartsWith($endMarker)) { 
         # Set the flag to stop extracting lines
         $extract = $false
@@ -132,12 +133,22 @@ foreach ($line in $lines) {
                 }
 
                 "network-object" {
-                    if ($line -match "network-object (.+) (.+)") {
+                    #if ($line -match "network-object (.+) (.+)") {
+                    #    $objectNetworkObject += "($($lineType)):$($matches[1])/$($matches[2])"
+                    #    $currentObject.ObjectValue = $objectNetworkObject -join ", `n"
+                    #    $ExpandedObjectValueTemp += "$($matches[1])/$($matches[2])"
+                    #    $currentObject.ExpandedObjectValue = $ExpandedObjectValueTemp -join ", `n"
+                    #}
+                    if ($line -match "network-object object (\b[\w.-]+\b)") {
+                        $objectNetworkObject += "($($lineType)):$($matches[1])"
+                        $ExpandedObjectValueTemp += ExpandObjValue -ObjectGroupName $matches[1]
+                
+                    } Elseif ($line -match "network-object (\d{1,3}(?:\.\d{1,3}){3}) (\d{1,3}(?:\.\d{1,3}){3})") { 
                         $objectNetworkObject += "($($lineType)):$($matches[1])/$($matches[2])"
-                        $currentObject.ObjectValue = $objectNetworkObject -join ", `n"
                         $ExpandedObjectValueTemp += "$($matches[1])/$($matches[2])"
-                        $currentObject.ExpandedObjectValue = $ExpandedObjectValueTemp -join ", `n"
                     }
+                    $currentObject.ObjectValue = $objectNetworkObject -join ", `n"
+                    $currentObject.ExpandedObjectValue = $ExpandedObjectValueTemp -join ", `n"
                 }
 
                 "group-object" {

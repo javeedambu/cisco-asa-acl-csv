@@ -39,7 +39,7 @@ Function retunVariable {
         ServiceName = $currentServiceName
         ServiceMembers = $currentServiceMembers
         Protocol = $currentProtocol
-        'Protocol/Port' = $currentPort
+        'Protocol/Port' = If ($currentPort) {"$($currentProtocol)/$($currentPort)"}Else {"$($currentProtocol)\any"}
         PortType = $currentPortType
         Interface = $currentInterface
         Description = $currentAclRemark -join ", `n"
@@ -156,7 +156,7 @@ Function ObjectGroup-ObjectGroup-Any {
     $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
-    $currentDestIP = "0.0.0.0 0.0.0.0"
+    $currentDestIP = "Any"
     
     $currentServiceType = if (($line -split " ")[4] -eq "object-group"){"ServiceGroup"} else {"ServiceObject"}
     $currentServiceName = ($line -split " ")[5]
@@ -279,7 +279,7 @@ Function ObjectGroup-Object-Any {
     $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
-    $currentDestIP = "0.0.0.0 0.0.0.0"
+    $currentDestIP = "Any"
     
     $currentServiceType = if (($line -split " ")[4] -eq "object-group"){"ServiceGroup"} else {"ServiceObject"}
     $currentServiceName = ($line -split " ")[5]
@@ -403,7 +403,7 @@ Function ObjectGroup-Host-Any {
     $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
-    $currentDestIP = "0.0.0.0 0.0.0.0"
+    $currentDestIP = "Any"
     
     $currentServiceType = if (($line -split " ")[4] -eq "object-group"){"ServiceGroup"} else {"ServiceObject"}
     $currentServiceName = ($line -split " ")[5]
@@ -430,7 +430,7 @@ Function ObjectGroup-Any-ObjectGroup {
     $currentSrcType = "Any"
     $currentSrcHG = "Any"
     $currentSrcHGMemebers = ""
-    $currentSrcIP = "0.0.0.0 0.0.0.0"
+    $currentSrcIP = "Any"
     
     $currentDestType = "Host/NetworkObjectGroup"
     $currentDestHG = ($line -split " ")[8]
@@ -460,7 +460,7 @@ Function ObjectGroup-Any-Object {
     $currentSrcType = "Any"
     $currentSrcHG = "Any"
     $currentSrcHGMemebers = ""
-    $currentSrcIP = "0.0.0.0 0.0.0.0"
+    $currentSrcIP = "Any"
     
     $currentDestType = "Host/NetworkObject"
     $currentDestHG = ($line -split " ")[8]
@@ -490,7 +490,7 @@ Function ObjectGroup-Any-Host {
     $currentSrcType = "Any"
     $currentSrcHG = "Any"
     $currentSrcHGMemebers = ""
-    $currentSrcIP = "0.0.0.0 0.0.0.0"
+    $currentSrcIP = "Any"
     
     $currentDestType = "Host"
     $currentDestHG = ($line -split " ")[8]
@@ -520,12 +520,12 @@ Function ObjectGroup-Any-Any {
     $currentSrcType = "Any"
     $currentSrcHG = "Any"
     $currentSrcHGMemebers = ""
-    $currentSrcIP = "0.0.0.0 0.0.0.0"
+    $currentSrcIP = "Any"
     
     $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
-    $currentDestIP = "0.0.0.0 0.0.0.0"
+    $currentDestIP = "Any"
     
     $currentServiceType = if (($line -split " ")[4] -eq "object-group"){"ServiceGroup"} else {"ServiceObject"}
     $currentServiceName = ($line -split " ")[5]
@@ -562,7 +562,7 @@ Function TcpUdp-ObjectGroup-ObjectGroup {
     $currentDestIP = ""
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -594,7 +594,7 @@ Function TcpUdp-ObjectGroup-Object {
     $currentDestIP = ""
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -626,7 +626,7 @@ Function TcpUdp-ObjectGroup-Host {
     $currentDestIP = ($line -split " ")[8]
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -655,10 +655,10 @@ Function TcpUdp-ObjectGroup-Any {
     $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
-    $currentDestIP = "0.0.0.0 0.0.0.0"
+    $currentDestIP = "Any"
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -692,7 +692,7 @@ Function TcpUdp-Object-ObjectGroup {
     $currentDestIP = ""
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -724,7 +724,7 @@ Function TcpUdp-Object-Object {
     $currentDestIP = ""
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -756,7 +756,7 @@ Function TcpUdp-Object-Host {
     $currentDestIP = ($line -split " ")[8]
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -785,10 +785,10 @@ Function TcpUdp-Object-Any {
     $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
-    $currentDestIP = "0.0.0.0 0.0.0.0"
+    $currentDestIP = "Any"
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -821,7 +821,7 @@ Function TcpUdp-host-ObjectGroup {
     $currentDestIP = ""
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -853,7 +853,7 @@ Function TcpUdp-host-Object {
     $currentDestIP = ""
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -885,7 +885,7 @@ Function TcpUdp-host-Host {
     $currentDestIP = ($line -split " ")[8]
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -914,10 +914,10 @@ Function TcpUdp-host-Any {
     $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
-    $currentDestIP = "0.0.0.0 0.0.0.0"
+    $currentDestIP = "Any"
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -942,7 +942,7 @@ Function TcpUdp-any-ObjectGroup {
     $currentSrcType = "Any"
     $currentSrcHG = "Any"
     $currentSrcHGMemebers = ""
-    $currentSrcIP = "0.0.0.0 0.0.0.0"
+    $currentSrcIP = "Any"
     
     $currentDestType = "Host/NetworkObjectGroup"
     $currentDestHG = ($line -split " ")[7]
@@ -950,7 +950,7 @@ Function TcpUdp-any-ObjectGroup {
     $currentDestIP = ""
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -974,7 +974,7 @@ Function TcpUdp-any-Object {
     $currentSrcType = "Any"
     $currentSrcHG = "Any"
     $currentSrcHGMemebers = ""
-    $currentSrcIP = "0.0.0.0 0.0.0.0"
+    $currentSrcIP = "Any"
     
     $currentDestType = "Host/NetworkObject"
     $currentDestHG = ($line -split " ")[7]
@@ -982,7 +982,7 @@ Function TcpUdp-any-Object {
     $currentDestIP = ""
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -1006,7 +1006,7 @@ Function TcpUdp-Any-Host {
     $currentSrcType = "Any"
     $currentSrcHG = "Any"
     $currentSrcHGMemebers = ""
-    $currentSrcIP = "0.0.0.0 0.0.0.0"
+    $currentSrcIP = "Any"
     
     $currentDestType = "Host"
     $currentDestHG = ($line -split " ")[7]
@@ -1014,7 +1014,7 @@ Function TcpUdp-Any-Host {
     $currentDestIP = ($line -split " ")[7]
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
@@ -1038,15 +1038,15 @@ Function TcpUdp-Any-Any {
     $currentSrcType = "Any"
     $currentSrcHG = "Any"
     $currentSrcHGMemebers = ""
-    $currentSrcIP = "0.0.0.0 0.0.0.0"
+    $currentSrcIP = "Any"
     
     $currentDestType = "Any"
     $currentDestHG = "Any"
     $currentDestHGMembers = ""
-    $currentDestIP = "0.0.0.0 0.0.0.0"
+    $currentDestIP = "Any"
     
     $currentServiceType = "Protocol"
-    $currentServiceName = 
+    $currentServiceName = ""
     $currentServiceMembers = ""
     
     $currentProtocol = ($line -split " ")[4]
