@@ -39,7 +39,7 @@ Function retunVariable {
         ServiceName = $currentServiceName
         ServiceMembers = $currentServiceMembers
         Protocol = $currentProtocol
-        'Protocol/Port' = If ($currentPort) {"$($currentProtocol)/$($currentPort)"}Else {"$($currentProtocol)\any"}
+        'Protocol/Port' = If ($currentPort) {"$($currentProtocol)/$($currentPort)"}Elseif ($currentProtocol) {"$($currentProtocol)/Any"}Else {""}
         PortType = $currentPortType
         Interface = $currentInterface
         Description = $currentAclRemark -join ", `n"

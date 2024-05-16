@@ -32,6 +32,7 @@ $matchingLinesDestination = @()
 
 # Loop through each SourceIP address
 foreach ($IP in $filterIPs) {
+    Write-Host "$(Get-Date) ..... Creating CSV for $(IP) ....."
     # Filter the lines based on the current SourceIP
     $matchingLinesSource += $data | Where-Object { $_.SourceIP -like "*$IP*" } | Select-Object FirewallName,@{n="SourceIP";e={$IP}}, DestinationIP,'Protocol/Port'
     $matchingLinesDestination += $data | Where-Object { $_.DestinationIP -like "*$IP*" } | Select-Object FirewallName,SourceIP, @{n="DestinationIP";e={$IP}},'Protocol/Port'

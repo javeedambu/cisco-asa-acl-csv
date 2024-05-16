@@ -1,6 +1,10 @@
 ﻿# Change the execution path to the script location 
 Set-Location -Path (Split-Path -Path $MyInvocation.MyCommand.Path -Parent)
 
+# Read the input text from a TXT file
+$inputText = Get-Content -Path .\Input\inputfile_ciscoasaconfig_showtech.txt
+
+# Initialise variables
 $csvData = @()
 $Matches =""
 $currentObject = ""
@@ -30,10 +34,6 @@ function ExpandObjValue{
         }
     }
 }
-
-
-# Read the input text from a TXT file
-$inputText = Get-Content -Path .\Input\inputfile_ciscoasaconfig_showtech.txt
 
 # Output file
 if (-not (Test-Path -Path ".\Output\")) {New-Item -Path .\Output -ItemType Directory -Force}
@@ -133,12 +133,6 @@ foreach ($line in $lines) {
                 }
 
                 "network-object" {
-                    #if ($line -match "network-object (.+) (.+)") {
-                    #    $objectNetworkObject += "($($lineType)):$($matches[1])/$($matches[2])"
-                    #    $currentObject.ObjectValue = $objectNetworkObject -join ", `n"
-                    #    $ExpandedObjectValueTemp += "$($matches[1])/$($matches[2])"
-                    #    $currentObject.ExpandedObjectValue = $ExpandedObjectValueTemp -join ", `n"
-                    #}
                     if ($line -match "network-object object (\b[\w.-]+\b)") {
                         $objectNetworkObject += "($($lineType)):$($matches[1])"
                         $ExpandedObjectValueTemp += ExpandObjValue -ObjectGroupName $matches[1]
